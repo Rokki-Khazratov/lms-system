@@ -13,17 +13,6 @@ GROUP_CHOISES=[
     (2,'Ochniy'),
 ]
 
-TEST_CHOISES=[
-    (1,'Written'),
-    (2,'Oral'),
-    (3,'Selfwork'),
-]
-
-EXAM_CHOISES=[
-    (1,'Midtearm'),
-    (2,'Final'),
-]
-
 class Group(m.Model):
     name = models.CharField(max_length=255)
     language = models.IntegerField(choices=LANGUAGE_CHOISES)
@@ -63,45 +52,10 @@ class Student(m.Model):
     full_name = models.CharField(max_length=55)
     phone_number = models.CharField(max_length=55)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
-    pasport_id = models.CharField()
+    pasport_id = models.CharField(max_length=255)
     balance = models.IntegerField()
     deboting = models.BooleanField()
 
     def __str__(self) -> str:
         return self.full_name
     
-class Room(m.Model):
-    name = m.CharField(max_length=255)
-    
-    def __str__(self):
-        return self.name
-    
-class Subject(m.Model):
-    name = m.CharField(max_length=255)
-    
-    def __str__(self):
-        return self.name
-    
-class Schedule(models.Model):
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    date = models.DateField()
-    time_start = models.TimeField()
-    time_end = models.TimeField()
-
-    def __str__(self):
-        return f"{self.subject} - {self.teacher} - {self.date} {self.time_start}-{self.time_end}"
-    
-class Exam(models.Model):
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    date = models.DateField()
-    time_start = models.TimeField()
-    time_end = models.TimeField()
-    test_choises = models.IntegerField(choices=TEST_CHOISES)
-    exam_choises = models.IntegerField(choices=EXAM_CHOISES)
-
-    def __str__(self):
-        return f"Экзамен по {self.subject} - {self.date} {self.time_start}-{self.time_end}"
-
