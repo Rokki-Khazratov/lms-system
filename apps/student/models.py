@@ -40,18 +40,13 @@ class Teacher(models.Model):
             return None
 
 
-class User(m.Model):
-    user = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.user
 
 
 class Student(m.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, blank=True)
     full_name = models.CharField(max_length=55)
     phone_number = models.CharField(max_length=55)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     pasport_id = models.CharField(max_length=255)
     balance = models.IntegerField()
     deboting = models.BooleanField()
