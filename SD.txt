@@ -8,13 +8,14 @@ Database:
 
 1.Student(group(FK),full_name,phone_number,user(FK),pasportid,balance,deboting(bool))
 2.Group(name,language(CHF),group_type(CHF),tutor(fk))
-3.Course(name,many-to-many(course))
-
+3.Course(name,many-to-many(group))      
 4.Teacher(name,img,is_tutor(bool),groups((if is_tutor=True),limit=15))
 5.Room(name)
 6.Subject(name)
 7.Schedule(teacher,subject,room,date,time_start,time_end)
 8.Exam(teacher,subject,room,date,time_start,time_end,test_type(CHF),exam_type(CHF))
+
+DONE
 
 
 
