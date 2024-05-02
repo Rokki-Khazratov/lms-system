@@ -4,9 +4,13 @@ from .models import Exam, Schedule, Subject, Course, Room
 
 
 class ExamSerializer(serializers.ModelSerializer):
+    subject = serializers.SerializerMethodField()
     class Meta:
         model = Exam
         fields = ['id', 'subject', 'room', 'date', 'time_start', 'time_end', 'test_choises', 'exam_choises']
+
+    def get_subject(self,obj):
+        return obj.subject.name
 
 
 class RoomSerializer(serializers.ModelSerializer):

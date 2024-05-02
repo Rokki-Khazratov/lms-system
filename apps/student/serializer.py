@@ -16,4 +16,4 @@ class TeacherSerializer(serializers.ModelSerializer):
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = ['id', 'name', 'group', 'tutor', 'group_type']
+        fields = ['id', 'name','language', 'group_type', 'tutor']
