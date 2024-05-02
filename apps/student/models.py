@@ -51,6 +51,6 @@ class Student(m.Model):
     balance = models.IntegerField()
     deboting = models.BooleanField()
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.full_name
     
