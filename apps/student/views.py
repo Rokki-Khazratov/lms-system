@@ -24,7 +24,8 @@ class StudentListCreateAPIView(ListCreateAPIView):
         if pasport_id:
             queryset = queryset.filter(pasport_id=pasport_id)
 
-        if deboting:
+        if deboting is not None:
+            deboting = deboting.lower() == 'true'  
             queryset = queryset.filter(deboting=deboting)
 
         return queryset
@@ -36,8 +37,23 @@ class StudentRUDView(RetrieveUpdateDestroyAPIView):
     serializer_class = StudentSerializer
 
 class TeacherListCreateAPIView(ListCreateAPIView):
-    queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
+
+    def get_queryset(self):
+        queryset = Teacher.objects.all()
+
+        name = self.request.query_params.get('name', None)
+        is_tutor = self.request.query_params.get('is_tutor', None)
+
+        if name:
+            queryset = queryset.filter(name=name)
+
+        if is_tutor is not None:
+            is_tutor = is_tutor.lower() == 'true'  
+            queryset = queryset.filter(is_tutor=is_tutor)
+
+        return queryset
+    
 
 class TeacherRUDView(RetrieveUpdateDestroyAPIView):
     queryset = Teacher.objects.all()
@@ -45,8 +61,30 @@ class TeacherRUDView(RetrieveUpdateDestroyAPIView):
 
 
 class GroupListCreateAPIView(ListCreateAPIView):
-    queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+    def get_queryset(self):
+        queryset = Group.objects.all()
+
+        name = self.request.query_params.get('name', None)
+        language = self.request.query_params.get('language', None)
+        group_type = self.request.query_params.get('group_type', None)
+        tutor_id = self.request.query_params.get('tutor_id', None)
+
+        if name:
+            queryset = queryset.filter(name=name)
+
+        if language:
+            queryset = queryset.filter(language=language)
+
+        if group_type:
+            queryset = queryset.filter(group_type=group_type)
+
+        if tutor_id:
+            queryset = queryset.filter(tutor_id=tutor_id)
+
+        return queryset
+
 
 class GroupRUDView(RetrieveUpdateDestroyAPIView):
     queryset = Group.objects.all()
